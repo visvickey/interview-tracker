@@ -3,83 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Interview Pro | Yellow</title>
+    <title>Interview Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        /* High Contrast Yellow & Black Palette */
-        :root {
-            --brand-yellow: #FFDE00;
-            --brand-black: #121212;
-        }
         body { 
-            background-color: var(--brand-yellow); 
-            font-family: 'Inter', -apple-system, sans-serif;
-            color: var(--brand-black);
+            background: #0f172a; /* Deep Navy */
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", sans-serif;
         }
-        input, select { 
-            font-size: 16px !important; 
-            background: #000 !important;
-            color: #FFDE00 !important;
-            border: 2px solid #000 !important;
-        }
-        input::placeholder { color: #FFDE00; opacity: 0.6; }
-        .btn-black {
-            background: #000;
-            color: #FFDE00;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-weight: 900;
-        }
-        .card-black {
-            background: #000;
-            color: #FFDE00;
+        .bento-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 24px;
+        }
+        .input-field {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
+            transition: all 0.3s ease;
+        }
+        .input-field:focus {
+            border-color: #38bdf8;
+            background: rgba(15, 23, 42, 0.9);
+        }
+        input, select { font-size: 16px !important; }
+        .accent-gradient {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
         }
     </style>
 </head>
-<body class="p-4 pb-24 min-h-screen">
+<body class="p-5 pb-24 min-h-screen">
 
-    <header class="mb-8 pt-4">
-        <h1 class="text-4xl font-black italic uppercase leading-none italic">Interview<br>Manager</h1>
-        <div class="h-1 w-20 bg-black mt-2"></div>
+    <header class="mb-8 flex justify-between items-center">
+        <div>
+            <h1 class="text-2xl font-bold tracking-tight">Interview HQ</h1>
+            <p class="text-slate-400 text-xs font-medium">Candidate Pipeline</p>
+        </div>
+        <div class="w-10 h-10 rounded-full accent-gradient flex items-center justify-center shadow-lg shadow-blue-500/20">
+            <span class="text-xs font-bold">JD</span>
+        </div>
     </header>
 
-    <section class="space-y-4 mb-10">
-        <input type="text" id="name" placeholder="CANDIDATE NAME" class="w-full p-4 rounded-xl outline-none">
-        <input type="text" id="position" placeholder="POSITION" class="w-full p-4 rounded-xl outline-none">
-        
-        <select id="type" class="w-full p-4 rounded-xl appearance-none">
-            <option value="Personal">📍 PERSONAL</option>
-            <option value="Telephonic">📞 TELEPHONIC</option>
-            <option value="Virtual">💻 VIRTUAL</option>
-        </select>
-
-        <div class="bg-black text-[#FFDE00] p-4 rounded-2xl border-2 border-black">
-            <label class="text-[10px] font-black uppercase mb-2 block tracking-widest">Schedule Interview Time</label>
-            <input type="datetime-local" id="interviewTime" class="w-full p-2 mb-4 bg-transparent border-b border-yellow-400 !border-0 !border-b-2">
+    <section class="bento-card p-6 mb-8 shadow-2xl">
+        <div class="space-y-4">
+            <input type="text" id="name" placeholder="Candidate Name" class="input-field w-full p-4 rounded-2xl outline-none">
+            <input type="text" id="position" placeholder="Position" class="input-field w-full p-4 rounded-2xl outline-none">
             
-            <label class="text-[10px] font-black uppercase mb-2 block tracking-widest">Alert Settings</label>
-            <div class="flex items-center gap-2">
-                <input type="checkbox" id="remind60" checked class="w-5 h-5 accent-yellow-400"> <span class="text-xs mr-2">1H</span>
-                <input type="checkbox" id="remind30" checked class="w-5 h-5 accent-yellow-400"> <span class="text-xs mr-2">30M</span>
-                <input type="checkbox" id="remind15" checked class="w-5 h-5 accent-yellow-400"> <span class="text-xs">15M</span>
+            <div class="grid grid-cols-2 gap-3">
+                <select id="type" class="input-field p-4 rounded-2xl outline-none appearance-none text-sm">
+                    <option value="Personal">📍 Personal</option>
+                    <option value="Telephonic">📞 Telephonic</option>
+                    <option value="Virtual">💻 Virtual</option>
+                </select>
+                <div class="relative">
+                    <input type="datetime-local" id="interviewTime" class="input-field w-full p-4 rounded-2xl outline-none text-sm">
+                </div>
             </div>
-        </div>
 
-        <button onclick="addCandidate()" class="w-full btn-black py-5 rounded-2xl shadow-[6px_6px_0px_0px_rgba(0,0,0,1)] active:shadow-none active:translate-x-1 active:translate-y-1 transition-all">
-            ADD TO PIPELINE
-        </button>
+            <div class="p-3 bg-slate-800/50 rounded-2xl border border-white/5 flex items-center justify-between">
+                <span class="text-[10px] uppercase font-bold text-slate-400 ml-1">Alerts:</span>
+                <div class="flex gap-4 mr-2">
+                    <label class="text-[10px] flex items-center gap-1 font-bold"><input type="checkbox" id="remind60" checked class="accent-sky-400"> 1H</label>
+                    <label class="text-[10px] flex items-center gap-1 font-bold"><input type="checkbox" id="remind30" checked class="accent-sky-400"> 30M</label>
+                    <label class="text-[10px] flex items-center gap-1 font-bold"><input type="checkbox" id="remind15" checked class="accent-sky-400"> 15M</label>
+                </div>
+            </div>
+
+            <button onclick="addCandidate()" class="accent-gradient w-full py-4 rounded-2xl font-bold text-white shadow-lg active:scale-95 transition-transform uppercase text-xs tracking-widest">
+                Create Schedule
+            </button>
+        </div>
     </section>
 
-    <div class="mb-6">
-        <input type="text" id="searchBar" oninput="render()" placeholder="SEARCH..." 
-               class="w-full p-3 bg-transparent border-2 border-black !text-black !bg-white/20 rounded-xl placeholder:text-black/50">
+    <div class="mb-6 relative">
+        <div class="absolute inset-y-0 left-4 flex items-center pointer-events-none opacity-40">🔍</div>
+        <input type="text" id="searchBar" oninput="render()" placeholder="Find candidate..." 
+               class="w-full p-4 pl-12 bg-slate-800/40 border border-white/5 rounded-2xl outline-none text-sm">
     </div>
 
-    <div id="candidateList" class="space-y-6"></div>
+    <div id="candidateList" class="space-y-4"></div>
 
     <script>
-        let candidates = JSON.parse(localStorage.getItem('interviews_v3')) || [];
+        let candidates = JSON.parse(localStorage.getItem('interviews_v4')) || [];
 
         function addCandidate() {
             const name = document.getElementById('name').value;
@@ -87,13 +93,13 @@
             const type = document.getElementById('type').value;
             const interviewTime = document.getElementById('interviewTime').value;
 
-            if (!name || !position || !interviewTime) return alert("MISSING DATA");
+            if (!name || !position || !interviewTime) return alert("Please fill all details");
 
             candidates.push({
                 id: Date.now(),
                 name, position, type, interviewTime,
                 status: 'Pending',
-                alertsSent: [] // Track which alerts (60, 30, 15) have been fired
+                alertsSent: []
             });
 
             saveAndRender();
@@ -106,14 +112,14 @@
         }
 
         function deleteCandidate(id) {
-            if(confirm("DELETE?")) {
+            if(confirm("Remove entry?")) {
                 candidates = candidates.filter(c => c.id !== id);
                 saveAndRender();
             }
         }
 
         function saveAndRender() {
-            localStorage.setItem('interviews_v3', JSON.stringify(candidates));
+            localStorage.setItem('interviews_v4', JSON.stringify(candidates));
             render();
         }
 
@@ -126,47 +132,51 @@
             
             filtered.sort((a, b) => new Date(a.interviewTime) - new Date(b.interviewTime)).forEach(c => {
                 const dateObj = new Date(c.interviewTime);
-                const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: true });
+                const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 const dateStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric' });
                 
-                const statusColor = c.status === 'Selected' ? 'bg-green-500 text-black' : c.status === 'Rejected' ? 'bg-red-600 text-white' : 'bg-yellow-400 text-black';
+                const statusStyles = {
+                    'Selected': 'bg-emerald-500/20 text-emerald-400',
+                    'Rejected': 'bg-rose-500/20 text-rose-400',
+                    'Pending': 'bg-sky-500/20 text-sky-400'
+                }[c.status];
 
                 list.innerHTML += `
-                    <div class="card-black p-6 shadow-xl relative overflow-hidden border-t-8 border-yellow-400">
+                    <div class="bento-card p-5 border border-white/5">
                         <div class="flex justify-between items-start mb-4">
                             <div>
-                                <h3 class="font-black text-2xl uppercase italic leading-tight">${c.name}</h3>
-                                <p class="text-yellow-400 font-bold text-xs tracking-widest">${c.position}</p>
+                                <h3 class="font-bold text-lg">${c.name}</h3>
+                                <p class="text-xs text-slate-400 font-medium">${c.position}</p>
                             </div>
-                            <span class="text-[10px] px-2 py-1 font-black ${statusColor}">${c.status}</span>
+                            <span class="text-[10px] px-2 py-1 rounded-lg font-bold ${statusStyles}">${c.status}</span>
                         </div>
 
-                        <div class="grid grid-cols-2 gap-2 mb-6 text-center">
-                            <div class="bg-white/10 p-2 rounded-lg">
-                                <p class="text-[8px] opacity-50 uppercase">Date</p>
-                                <p class="font-bold text-sm">${dateStr}</p>
+                        <div class="flex items-center gap-3 mb-5">
+                            <div class="bg-white/5 px-3 py-2 rounded-xl text-center flex-1">
+                                <p class="text-[9px] text-slate-500 uppercase font-black">Date</p>
+                                <p class="text-xs font-bold">${dateStr}</p>
                             </div>
-                            <div class="bg-white/10 p-2 rounded-lg">
-                                <p class="text-[8px] opacity-50 uppercase">Time</p>
-                                <p class="font-bold text-sm text-yellow-400">${timeStr}</p>
+                            <div class="bg-white/5 px-3 py-2 rounded-xl text-center flex-1">
+                                <p class="text-[9px] text-slate-500 uppercase font-black">Time</p>
+                                <p class="text-xs font-bold text-sky-400">${timeStr}</p>
                             </div>
                         </div>
                         
-                        <div class="flex items-center gap-3">
-                            <select onchange="updateStatus(${c.id}, this.value)" class="flex-1 text-[11px] font-black border-none !bg-yellow-400 !text-black p-3 rounded-lg outline-none">
-                                <option value="" disabled selected>SET STATUS</option>
-                                <option value="Pending">PENDING</option>
-                                <option value="Selected">SELECTED</option>
-                                <option value="Rejected">REJECTED</option>
+                        <div class="flex items-center gap-2">
+                            <select onchange="updateStatus(${c.id}, this.value)" class="flex-1 text-xs font-bold bg-slate-800 p-3 rounded-xl border-none outline-none">
+                                <option value="" disabled selected>Update Status</option>
+                                <option value="Pending">Pending</option>
+                                <option value="Selected">Selected</option>
+                                <option value="Rejected">Rejected</option>
                             </select>
-                            <button onclick="deleteCandidate(${c.id})" class="text-xl">🗑️</button>
+                            <button onclick="deleteCandidate(${c.id})" class="p-3 bg-white/5 rounded-xl opacity-40 hover:opacity-100">🗑️</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Logic for 1h, 30m, and 15m Alerts
+        // Reminder Engine
         function checkReminders() {
             const now = new Date().getTime();
             let updated = false;
@@ -177,24 +187,21 @@
                 const eventTime = new Date(c.interviewTime).getTime();
                 const diffMinutes = Math.floor((eventTime - now) / 60000);
 
-                const alertCheck = (minutes, label) => {
-                    if (diffMinutes === minutes && !c.alertsSent.includes(label)) {
-                        alert(`⚠️ ALERT: ${c.name} for ${c.position} starts in ${label}!`);
+                const triggers = [60, 30, 15, 0];
+                triggers.forEach(t => {
+                    const label = t === 0 ? "Now" : `${t}m`;
+                    if (diffMinutes === t && !c.alertsSent.includes(label)) {
+                        alert(`⏰ INTERVIEW ALERT: ${c.name} starts in ${label}!`);
                         c.alertsSent.push(label);
                         updated = true;
                     }
-                };
-
-                alertCheck(60, "1 Hour");
-                alertCheck(30, "30 Minutes");
-                alertCheck(15, "15 Minutes");
-                alertCheck(0, "Now");
+                });
             });
 
             if (updated) saveAndRender();
         }
 
-        setInterval(checkReminders, 30000); // Check every 30 seconds
+        setInterval(checkReminders, 30000);
         render();
     </script>
 </body>
