@@ -2,67 +2,83 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interview Manager</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Pro Interview Tracker</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
-        tailwind.config = {
-            darkMode: 'class'
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
     <style>
-        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; transition: background-color 0.3s; }
-        input, select { font-size: 16px !important; } 
-        .card { transition: transform 0.1s; }
-        .card:active { transform: scale(0.98); }
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif; }
+        input, select { font-size: 16px !important; transition: all 0.2s; }
+        .glass { backdrop-filter: blur(10px); background: rgba(255, 255, 255, 0.8); }
+        .dark .glass { background: rgba(30, 41, 59, 0.8); }
+        .pulse-ring { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4); }
+            70% { box-shadow: 0 0 0 10px rgba(99, 102, 241, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(99, 102, 241, 0); }
+        }
     </style>
 </head>
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-900 dark:text-slate-100 p-4 pb-20 min-h-screen">
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 p-4 pb-24 min-h-screen">
 
-    <header class="mb-6 flex justify-between items-center">
+    <header class="mb-6 flex justify-between items-end">
         <div>
-            <h1 class="text-2xl font-bold">Interview Log</h1>
-            <p class="text-[10px] font-bold opacity-50 uppercase tracking-widest">iPhone SE Optimized</p>
+            <span class="text-indigo-600 dark:text-indigo-400 text-xs font-black uppercase tracking-tighter">Management Portal</span>
+            <h1 class="text-3xl font-extrabold tracking-tight">Interviews</h1>
         </div>
-        <button onclick="toggleTheme()" class="p-2 rounded-full bg-slate-200 dark:bg-slate-800 text-xl shadow-inner">
-            <span id="themeIcon">🌙</span>
+        <button onclick="toggleTheme()" class="w-12 h-12 rounded-2xl bg-white dark:bg-slate-800 shadow-sm flex items-center justify-center border border-slate-200 dark:border-slate-700 active:scale-90 transition-transform">
+            <span id="themeIcon" class="text-xl">🌙</span>
         </button>
     </header>
 
-    <section class="bg-white dark:bg-slate-800 p-5 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 mb-6">
-        <div class="space-y-3">
-            <input type="text" id="name" placeholder="Candidate Name" class="w-full p-3 bg-slate-100 dark:bg-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
-            <input type="text" id="position" placeholder="Position (e.g. Sales Manager)" class="w-full p-3 bg-slate-100 dark:bg-slate-700 rounded-xl outline-none focus:ring-2 focus:ring-indigo-500">
+    <section class="bg-white dark:bg-slate-900 p-6 rounded-[2rem] shadow-xl border border-slate-200/50 dark:border-slate-800/50 mb-8">
+        <div class="space-y-4">
+            <div class="relative">
+                <input type="text" id="name" placeholder="Candidate Name" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl outline-none ring-1 ring-slate-200 dark:ring-slate-700 focus:ring-2 focus:ring-indigo-500">
+            </div>
             
-            <div class="grid grid-cols-2 gap-2">
-                <select id="type" class="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl appearance-none text-sm">
-                    <option value="Personal">📍 Personal</option>
-                    <option value="Telephonic">📞 Telephonic</option>
-                    <option value="Virtual">💻 Virtual</option>
-                </select>
-                <input type="datetime-local" id="reminder" class="p-3 bg-slate-100 dark:bg-slate-700 rounded-xl text-sm">
+            <input type="text" id="position" placeholder="Job Position" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl outline-none ring-1 ring-slate-200 dark:ring-slate-700 focus:ring-2 focus:ring-indigo-500">
+            
+            <div class="space-y-4">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-slate-400 uppercase ml-2">Interview Medium</label>
+                    <select id="type" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700 appearance-none">
+                        <option value="Personal">📍 Personal (In-Office)</option>
+                        <option value="Telephonic">📞 Telephonic</option>
+                        <option value="Virtual">💻 Virtual Meeting</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] font-bold text-indigo-500 uppercase ml-2 flex items-center gap-1">
+                        <span class="w-2 h-2 bg-indigo-500 rounded-full animate-pulse"></span>
+                        Set Reminder Time
+                    </label>
+                    <input type="datetime-local" id="reminder" class="w-full p-4 bg-slate-50 dark:bg-slate-800 border-none rounded-2xl ring-1 ring-slate-200 dark:ring-slate-700 text-indigo-600 dark:text-indigo-400 font-medium">
+                </div>
             </div>
 
-            <button onclick="addCandidate()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-bold py-4 rounded-2xl shadow-lg active:scale-95 transition-all">
-                Schedule Interview
+            <button onclick="addCandidate()" class="w-full bg-indigo-600 text-white font-bold py-4 rounded-2xl shadow-lg shadow-indigo-200 dark:shadow-none active:scale-95 transition-all mt-2">
+                Save & Schedule
             </button>
         </div>
     </section>
 
-    <div class="mb-4 relative">
-        <input type="text" id="searchBar" oninput="render()" placeholder="Search names or positions..." 
-               class="w-full p-3 pl-10 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl shadow-sm outline-none">
-        <span class="absolute left-3 top-3.5 opacity-30">🔍</span>
+    <div class="mb-6 sticky top-4 z-10">
+        <div class="glass border border-white/20 dark:border-slate-700/50 rounded-2xl shadow-lg flex items-center px-4">
+            <span class="opacity-40">🔍</span>
+            <input type="text" id="searchBar" oninput="render()" placeholder="Search candidates..." class="w-full p-4 bg-transparent border-none outline-none text-sm">
+        </div>
     </div>
 
-    <div id="count" class="text-xs font-bold mb-4 opacity-60 uppercase ml-1">0 Entries</div>
-
-    <div id="candidateList" class="space-y-3"></div>
+    <div id="candidateList" class="space-y-4"></div>
 
     <script>
         let candidates = JSON.parse(localStorage.getItem('interviews')) || [];
         
-        // --- Theme Logic ---
+        // Theme Persistence
         if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
             document.documentElement.classList.add('dark');
             document.getElementById('themeIcon').innerText = '☀️';
@@ -82,7 +98,6 @@
             }
         }
 
-        // --- Core Logic ---
         function addCandidate() {
             const name = document.getElementById('name').value;
             const position = document.getElementById('position').value;
@@ -93,16 +108,13 @@
 
             candidates.push({
                 id: Date.now(),
-                name,
-                position,
-                type,
-                reminder,
+                name, position, type, reminder,
                 status: 'Pending'
             });
 
             saveAndRender();
-            document.getElementById('name').value = '';
-            document.getElementById('position').value = '';
+            // Clear inputs
+            ['name', 'position', 'reminder'].forEach(id => document.getElementById(id).value = '');
         }
 
         function updateStatus(id, newStatus) {
@@ -111,7 +123,7 @@
         }
 
         function deleteCandidate(id) {
-            if(confirm("Remove this candidate?")) {
+            if(confirm("Permanently delete?")) {
                 candidates = candidates.filter(c => c.id !== id);
                 saveAndRender();
             }
@@ -125,62 +137,64 @@
         function render() {
             const list = document.getElementById('candidateList');
             const searchTerm = document.getElementById('searchBar').value.toLowerCase();
+            const filtered = candidates.filter(c => c.name.toLowerCase().includes(searchTerm) || c.position.toLowerCase().includes(searchTerm));
             
-            const filtered = candidates.filter(c => 
-                c.name.toLowerCase().includes(searchTerm) || 
-                c.position.toLowerCase().includes(searchTerm)
-            );
-            
-            document.getElementById('count').innerText = `${filtered.length} Results`;
             list.innerHTML = '';
             
-            if (filtered.length === 0) {
-                list.innerHTML = `<div class="text-center py-10 opacity-40 font-medium">No records found</div>`;
-                return;
-            }
-
             filtered.sort((a, b) => new Date(a.reminder) - new Date(b.reminder)).forEach(c => {
-                const date = new Date(c.reminder).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
-                const typeIcon = c.type === 'Personal' ? '📍' : c.type === 'Telephonic' ? '📞' : '💻';
+                const dateObj = new Date(c.reminder);
+                const timeStr = dateObj.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                const dateStr = dateObj.toLocaleDateString([], { month: 'short', day: 'numeric' });
                 
                 const statusTheme = {
-                    'Pending': 'bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-400',
-                    'Selected': 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400',
-                    'Rejected': 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400 opacity-70'
+                    'Pending': 'bg-amber-500/10 text-amber-600',
+                    'Selected': 'bg-emerald-500/10 text-emerald-600',
+                    'Rejected': 'bg-rose-500/10 text-rose-600 opacity-50'
                 }[c.status];
 
                 list.innerHTML += `
-                    <div class="card bg-white dark:bg-slate-800 p-4 rounded-2xl shadow-sm border border-slate-200 dark:border-slate-700">
-                        <div class="flex justify-between items-start mb-1">
-                            <div>
-                                <h3 class="font-bold text-lg leading-tight">${c.name}</h3>
-                                <p class="text-indigo-600 dark:text-indigo-400 text-sm font-semibold">${c.position}</p>
+                    <div class="bg-white dark:bg-slate-900 p-5 rounded-[2rem] shadow-sm border border-slate-100 dark:border-slate-800 relative group overflow-hidden">
+                        <div class="flex justify-between items-start">
+                            <div class="max-w-[70%]">
+                                <p class="text-[10px] font-black uppercase text-indigo-500 mb-1 tracking-widest">${c.position}</p>
+                                <h3 class="font-bold text-xl truncate">${c.name}</h3>
                             </div>
-                            <span class="text-[9px] px-2 py-1 rounded-md font-black uppercase ${statusTheme}">${c.status}</span>
+                            <span class="text-[9px] px-3 py-1 rounded-full font-black uppercase ${statusTheme}">${c.status}</span>
                         </div>
-                        <p class="text-xs opacity-60 mb-4">${typeIcon} ${c.type} • ${date}</p>
-                        
-                        <div class="flex items-center gap-2">
-                            <select onchange="updateStatus(${c.id}, this.value)" class="flex-1 text-xs font-bold border-none bg-slate-100 dark:bg-slate-700 p-2 rounded-xl">
+
+                        <div class="mt-4 flex items-center justify-between">
+                            <div class="flex items-center gap-2 text-slate-400 dark:text-slate-500 font-medium text-xs">
+                                <span class="bg-slate-100 dark:bg-slate-800 p-2 rounded-lg">📅 ${dateStr}</span>
+                                <span class="bg-indigo-50 dark:bg-indigo-900/20 text-indigo-600 p-2 rounded-lg font-bold">⏰ ${timeStr}</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex gap-2">
+                            <select onchange="updateStatus(${c.id}, this.value)" class="flex-1 text-[11px] font-bold border-none bg-slate-50 dark:bg-slate-800 p-3 rounded-xl outline-none">
                                 <option value="" disabled selected>Update Status</option>
                                 <option value="Pending">Pending</option>
                                 <option value="Selected">Selected</option>
                                 <option value="Rejected">Rejected</option>
                             </select>
-                            <button onclick="deleteCandidate(${c.id})" class="p-2 opacity-30 hover:opacity-100 text-rose-500">🗑️</button>
+                            <button onclick="deleteCandidate(${c.id})" class="bg-rose-50 dark:bg-rose-900/20 p-3 rounded-xl">🗑️</button>
                         </div>
                     </div>
                 `;
             });
         }
 
-        // Check for reminders every minute
+        // Real-time Reminder System
         setInterval(() => {
             const now = new Date().getTime();
             candidates.forEach(c => {
                 const iTime = new Date(c.reminder).getTime();
+                // Alert if current time is within 1 minute of scheduled time
                 if (Math.abs(now - iTime) < 30000 && c.status === 'Pending') {
-                    alert(`UPCOMING: ${c.name} for ${c.position}`);
+                    if ("Notification" in window && Notification.permission === "granted") {
+                        new Notification(`Interview: ${c.name}`, { body: `Starting now for ${c.position}` });
+                    } else {
+                        alert(`⏰ REMINDER: ${c.name}'s interview for ${c.position} is starting now!`);
+                    }
                 }
             });
         }, 60000);
